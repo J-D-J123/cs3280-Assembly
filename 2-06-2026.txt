@@ -1,0 +1,74 @@
+2/06/2026
+
+Example - Addressing Modes
+	1. LDAA #$C2
+		- immediate addressing mode 
+		- look at the pdf file and find LDAA (copy smth into A)
+		- 2 byte instruction 
+		- opp code is 86 
+		- Machine Code = &86, $C2 -> (A) = $C2
+	2. LDAA $C2
+		- Direct Addressing Mode 
+		- no pound sign and only one byte
+		- opp code is 96 
+		- $96, $C2 -> (A) = $00C2
+	3. LDAA $C200
+		- Extending Addressing Mode 
+		- Opp code  is B6 and 3 bytes
+		- $B6, $C2, $00 -> (A) = $02
+			- EA = $C200 (the opp code)
+	4. LDAA $20, X
+		- Indexed Addressing Mode, X
+		- Opp Code A6 and 2 Bytes 
+		- $A6, $20 -> (A) = $04
+			- EA = $C320
+
+	- Don't forget number system is in hex base 16 so 9+1 is not equal to 10 it equals A
+
+Endian Date Format 
+	- STD $C200: D -> M:M+1
+		- Big Endian Format (Motorola)
+		- Little Endian Format (Intel) 
+
+Condition Code Register 
+	- Only Care about N, Z, V, C flags 
+	- Branches will use these flags 
+	- N, Z, V, C flags settings depend on data item (D)
+		stored in register or memory at the end of instruction execution 
+
+	- N = negative flag
+	- Z = zero flag 
+	- V = overflow flag (signed numbers)
+	- C = carry flag
+
+Examples Flags after Insturction Execution 
+
+	Ex. 1
+		LDDA	#$10	0001 0000
+		ADDA	#$F0	1111 0000 +
+	Ans: 			0000 0000 -> carry 1 out
+		- N = Negative 	= 0
+		- Z = Zero Flag	= 1
+		- V = Overflow  = 0
+		- C = Carry	= 1
+
+	Ex. 2 
+
+		LDAA	#$90	1001 0000 
+		ADDA	#$90	1001 0000 +
+	Ans: 			0010 0000 -> carry 1 out
+		- N = Negative 	= 0
+		- Z = Zero Flag	= 0
+		- V = Overflow  = 1
+		- C = Carry	= 1
+
+	Ex. 3
+
+		LDX	#$9000
+	Ans: 1001 0000 LDX (only the N Z flags will change and V will be reset to 0)
+		X = $9000
+		N = 1
+		Z = 0
+		C = (will not be touched will not change)
+		V = 0 (reset to 0)
+		
