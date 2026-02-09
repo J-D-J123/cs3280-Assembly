@@ -1,0 +1,74 @@
+2/09/2026
+
+Branches (Conditonal Statements) 
+	- Flag values set by the CMPA instruction 
+	- Branch if data less than 10 CMPA: (A) - (M); set CC flags, discard result 
+
+	BRA: branch always 
+	BRN: branch never 
+
+	BEQ: branch if equal:			if Z = 1
+	BNE: branch if not equal		if Z = 0
+
+	BMI: branch if minus: 			if N = 1
+	BPL: branch if plus: 			if N = 0
+
+	BCS: branch if carry set: 		if C = 1
+	BCC: branch if carry cleared		if C = 0
+
+	BVS: branch if overflow set:		if V = 1
+	BVC: branch if overflow cleared:	if V = 0
+
+		When dealing with unsigned numbers
+	BHI: branch if higher: 			if C + Z = 0
+	BHS: branch if higher or same:		if C = 0
+	
+	BLO: branch if lower:			if C = 1
+	BLS: branch if lower or same:		if C + Z = 1
+
+		When dealing with signed numbers (2's complement)
+
+	BGT: branch greater than: 		if Z + (N XOR V) = 0
+	BGE: branch if greater or equal: 	if N XORV = 0
+
+	BLT: branch if less than:		if N XORV = 1
+	BLE branch if less than or equal: 	if Z + (N XORV) = 1
+
+		All in the printout - No Need to Memorize 
+
+Most-often used Branches
+	- BHI, BHS, BLO, BLS, BGT, BGE, BLT, BLE: 
+
+Examples 
+	LDAA #1
+	CMPA #$FF
+	BHI  LOOP
+
+	? Will the branch be taken?
+	BHI => unsigned numbers => $FF = 255 
+	=> 1 < 255 => No 
+
+Ex 2. 
+	LDAA	#1
+	CMPA	#$FF
+	BGT 	LOOP
+
+	BGT => signed numbers => $FF = -1
+	=> +1 > -1 => Yes 
+
+Homework HW2 Examples 
+	LDX 1, X
+	
+	Table: 
+		PC	A 	X 	Y	ML($A000)	ML($A001)	ML($A002)	Caculate EA= LDX 1, X 
+Inital:		$C000	$80	$9FFF	$A000	$SC		$CC		$FF		EA = $A000 = X + 1
+After:		$C002	$80	$3CCC	$A000	$3C		$CC		$FF		X = $3CCC
+
+
+	STY 2, X => 3 byte instruction 
+	
+	Table: 
+		PC	A 	X 	Y	ML($A000)	ML($A001)	ML($A002)	
+Inital:		$C000	$80	$9FFF	$A000	$SC		$CC		$FF		
+After:		$C003	$80	$9FFF	$A000	$3C		$A0		$00
+	
